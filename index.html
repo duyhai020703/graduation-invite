@@ -1,227 +1,192 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thiệp Mời Lễ Tốt Nghiệp - Nguyễn Hải Duy</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - Nguyễn Hải Duy</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap');
+
     body {
       margin: 0;
       padding: 0;
+      background: #f5f5f7;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #cbe7ff, #f7fbff);
-      color: #333;
-      overflow-x: hidden;
-    }
-    .container {
-      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 40px 20px;
-      position: relative;
-    }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      color: #1e4e8c;
-      margin-bottom: 0.5rem;
-      letter-spacing: 2px;
-      animation: fadeIn 2s ease-in-out;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    h2 {
-      font-weight: 400;
-      color: #447cbf;
-      margin-top: 0;
-      animation: fadeIn 2.5s ease-in-out;
-    }
-
-    .photo-frame {
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
+    .card {
+      width: 360px;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      margin: 30px 0;
-      animation: float 4s ease-in-out infinite;
     }
 
-    .photo-frame img {
+    .img-section {
+      width: 100%;
+      height: 310px;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* keep image full-bleed; no bottom radius so content can overlap and show its rounded corners */
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .img-section img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0.95;
     }
 
-    .info {
+    .content {
+      padding: 25px;
+      text-align: center;
+      background: #ffffff;
+      /* rounded top corners for the content card */
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      /* pull content up so rounded corners sit over the image */
+      margin-top: -40px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.06);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      color: #222;
+    }
+
+    .follow-btn {
+      margin-top: 12px;
+      padding: 10px 28px;
+      border-radius: 22px;
+      border: 1px solid #c8c8c8;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.25s;
+    }
+
+    .follow-btn:hover {
+      background: #efefef;
+    }
+
+    .bio {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 10px;
+      text-align: center;
+    }
+
+    .stats div {
+      width: 33%;
+    }
+
+    .stats h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #111;
+    }
+
+    .stats span {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 0 25px 30px;
+    }
+
+    .socials a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: #f1f1f1;
+      color: #333;
       font-size: 1rem;
-      line-height: 1.8;
-      animation: fadeInUp 2.5s ease-in-out;
+      transition: 0.25s;
+      box-sizing: border-box;
     }
 
-    .info strong {
-      color: #1e4e8c;
+    .socials a:hover {
+      background: #e0e0e0;
+    }
+  .socials a:hover {
+      background: #e0e0e0;
+      transform: translateY(-2px);
     }
 
-    .message {
-      font-style: italic;
-      color: #2f2f2f;
-      margin-top: 20px;
-      animation: fadeInUp 3s ease-in-out;
-    }
-
-    /* Đồng hồ đếm ngược */
-    .countdown {
-      margin-top: 25px;
-      font-size: 1.3rem;
-      color: #1e4e8c;
-      font-weight: 500;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 10px 25px;
-      border-radius: 20px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      animation: fadeInUp 3s ease-in-out;
-    }
-
-    /* Bản đồ */
-    .map-container {
-      margin-top: 40px;
-      width: 90%;
-      max-width: 600px;
-      height: 300px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-      animation: fadeInUp 3.5s ease-in-out;
-    }
-
-    .decor {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.25;
-      z-index: -1;
-    }
-
-    .decor.blue1 {
-      width: 180px;
-      height: 180px;
-      background: #a2d4ff;
-      top: 10%;
-      left: 10%;
-      animation: move 8s infinite alternate;
-    }
-
-    .decor.blue2 {
-      width: 240px;
-      height: 240px;
-      background: #91caff;
-      bottom: 10%;
-      right: 10%;
-      animation: move 10s infinite alternate-reverse;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes move {
-      from { transform: translateY(0px); }
-      to { transform: translateY(15px); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 0.9rem;
-      color: #666;
-      animation: fadeInUp 3.5s ease-in-out;
+    .icon {
+      width: 22px;
+      height: 22px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="decor blue1"></div>
-    <div class="decor blue2"></div>
-
-    <h1>Graduation Day</h1>
-    <h2>Nguyễn Hải Duy</h2>
-
-    <div class="photo-frame">
-      <img src="https://github.com/duyhai020703/graduation-invite/blob/main/IMG_8835.JPG?raw=true" alt="Ảnh tốt nghiệp">
+  <div class="card">
+    <div class="img-section">
+      <img src="https://github.com/duyhai020703/graduation-invite/blob/main/IMG_8835.JPG?raw=true" />
     </div>
 
-    <div class="info">
-      <p><strong>Thời gian:</strong> 14:30 , 30/10/2025</p>
-      <p><strong>Địa điểm:</strong> 806 Lê Quang Đạo, Trung Mỹ Tây, Quận 12, Thành phố Hồ Chí Minh</p>
-      <p><strong>Liên hệ:</strong> Messenger: Nguyễn Duy — SĐT: 0941028637</p>
+    <div class="content">
+      <h1>Nguyễn Hải Duy</h1>
+      <button class="follow-btn">Follow</button>
+
+      <p class="bio">
+        Xin chào! Mình là Duy — một người yêu công nghệ, thích khám phá và tạo ra những điều mới mẻ. Hướng đến sự phát triển và không ngừng học hỏi.
+      </p>
     </div>
 
-    <div class="countdown" id="countdown">
-      Đang tính thời gian...
+    <div class="stats">
+      <div>
+        <h3>132</h3>
+        <span>Following</span>
+      </div>
+      <div>
+        <h3>12k</h3>
+        <span>Followers</span>
+      </div>
+      <div>
+        <h3>59</h3>
+        <span>Posts</span>
+      </div>
     </div>
 
-    <div class="map-container">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d653.7879057180251!2d106.60041873507737!3d10.864761711041924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b088de30f3b%3A0xd2140740d360f705!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOZ2_huqFpIG5n4buvIC0gVGluIGjhu41jIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCAoSFVGTElUKSBDxqEgc-G7nyBIw7NjIE3DtG4!5e0!3m2!1svi!2s!4v1761534595591!5m2!1svi!2s" width="100%"
-        height="100%"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"></iframe>
+    <div class="socials">
+      <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon"> Instagram</a>
+      <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="icon"> Facebook</a>
+      <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968841.png" class="icon"> Zalo</a>
+      <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" class="icon"> GitHub</a>
     </div>
-
-    <div class="message">
-      “Cảm ơn Fen ruột đã đi cùng t suốt thời gian sinh viên.<br>
-      Hy vọng sẽ nhận được sự ủng hộ từ Fen ruột trong tương lai sắp tới nhé!”
-    </div>
-    <footer>© 2025 | Graduation Invitation</footer>
   </div>
 
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2021/09/27/audio_91fd5d81df.mp3?filename=river-flows-in-you-piano-10354.mp3" type="audio/mp3">
-  </audio>
-
-  <script>
-    // Cập nhật đồng hồ đếm ngược
-    const countdownElement = document.getElementById('countdown');
-    const targetDate = new Date('2025-10-30T14:30:00').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        countdownElement.innerHTML = "🎓 Lễ tốt nghiệp đã bắt đầu!";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownElement.innerHTML =
-        `⏰ Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
 </body>
 </html>
-
-
-
-
